@@ -1,0 +1,80 @@
+import textwrap 
+
+# Constantes
+LIMITE_SAQUES = 3
+AGENCIA = "0001"
+
+# Classes
+class Usuario:
+    def __init__(self, cpf, nome, data_nascimento, endereco):
+        self.cpf = cpf
+        self.nome = nome
+        self.data_nascimento = data_nascimento
+        self.endereco = endereco
+
+class Conta:
+    def __init__(self, agencia, numero_conta, user):
+        self.agencia = agencia
+        self.numero_conta = numero_conta
+        self.user = usuario
+
+# Functions
+def menu():
+    opcoes = {
+        "d": "Depositar",
+        "s": "Sacar",
+        "e": "Extrato",
+        "nc": "Nova conta",
+        "lc": "Listar contas",
+        "nu": "Novo usuário",
+        "q": "Sair",
+    }
+    menu_texto = "\n".join([f"[{key}]\t{value}" for key, value in options.items()])
+    return input(textwrap.dedent(f"=============== MENU ================\n{menu_texto}\n=> "))
+
+def deposito(saldo, valor, extrato):
+    if valor > 0:
+        saldo += valor
+        extrato += f"Depósito:\tR$ {valor:.2f}\n"
+        print("\n=== Depósito realizado com sucesso! ===")
+    else:
+        print("\n Operação não processada! O valor informado é inválido.")
+    return saldo, extrato
+
+def withdraw(saldo, valor, extrato, limite, num_saques, limite_saques):
+    # Alterações similares de mudança nas funções
+    return saldo, extrato
+
+def display_statement(saldo, extrato):
+    # Alterações similares de mudança nas funções
+    pass
+
+def create_user(users):
+    # Alterações similares de mudança nas funções
+    pass
+
+def create_account(users, accounts):
+    # Alterações similares de mudança nas funções
+    pass
+
+def list_accounts(accounts):
+    # Alterações similares de mudança nas funçõesn
+    pass
+
+def main():
+    saldo = 0
+    limite = 500
+    extrato = ""
+    num_saques = 0
+    usuarios = []
+    contas = []
+
+    while True:
+        opcao = menu()
+
+        if opcao == "d":
+            valor = float(input("Informe o valor do depósito: "))
+            saldo, extrato = deposit(saldo, valor, extrato)
+
+        # Outros casos (s, e, nu, nc, lc, q) seguem o mesmo padrão
+main()
