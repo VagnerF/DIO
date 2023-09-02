@@ -1,0 +1,76 @@
+import datetime
+
+menu = """
+
+[d] Depositar
+[s] Sacar
+[e] Extrato
+[q] Sair
+
+=> """
+
+saldo = 0
+limite = 500
+extratos_bancarios = {"Extrato": [], "Extrato de Saques": [], "Extrato de Depósito": []}
+numeros_saques = 0
+LIMITE_SAQUES = 3
+
+while True:
+    opcao = input(menu)
+
+    if opcao.upper() == "d":
+        valor_deposito = float(input("Valor de depósito: R$ "))
+        if valor_deposito > 0:
+            saldo += valor_deposito
+            data = datetime.datetime.now()
+            extratos_bancarios["Extrato de Depósito"].append(f"Data: {str(data)} - Depósito: R$ {valor_deposito:.2f}")
+            extratos_bancarios["Extrato"].append(f"Data: {str(data)} - Depósito: R$ {valor_deposito:.2f}")
+        else:
+            print("Depositar acima de R$ 0")
+
+    elif opcao.upper() == "s":
+        if numeros_saques < LIMITE_SAQUES:
+            valor_saque = float(input("Valor de saque: R$ "))
+            if valor_saque > 0:
+                if valor_saque <= limite and valor_saque <= saldo:
+                    data = datetime.datetime.now()
+                    extratos_bancarios["Extrato de Saques"].append(f"Data: {str(data)} - Saque: R$ {valor_saque:.2f}")
+                    extratos_bancarios["Extrato"].append(f"Data: {str(data)} - Saque: R$ {valor_saque:.2f}")
+                    print("Saque realizado com sucesso")
+                    numeros_saques += 1
+                else:
+                    print(f"O limite de saque é de {limite:.2f}")
+            else:
+                print("Você deve informar um valor de saque válido!")
+        else:
+            print("Você não pode efetuar o saque, você excedeu o limite diário de 3 saques")
+
+    elif opcao.upper() == "e":
+        while True:
+            opcao_de_extrato = int(input("""
+            [1] Extrato
+            [2] Extrato de Saques
+            [3] Extrato de Depósitos
+            [4] Sair
+            """))
+
+            if opcao_de_extrato == 1:
+                for extrato in extratos_bancarios["Extrato"]:
+                    print(extrato)
+
+            if opcao_de_extrato == 2:
+                for extrato_saque in extratos_bancarios["Extrato de Saques"]:
+                    print(extrato_saque)
+
+            if opcao_de_extrato == 3:
+                for extrato_deposito in extratos_bancarios["Extrato de Depósito"]:
+                    print(extrato_deposito)
+
+            if opcao_de_extrato == 4:
+                break
+    elif opcao.upper() == "q":
+        break
+
+    else:
+        print("Operação inválida")
+        print("Seu pedido foi processado com sucesso")
